@@ -6,7 +6,9 @@ import React, {
   useState,
   useEffect,
   ReactNode,
+  useCallback,
 } from "react";
+import { Profile } from "@/entities/profile";
 import {
   liffGetAccessToken,
   liffGetProfile,
@@ -15,7 +17,6 @@ import {
   liffLogin,
   liffLogout,
 } from "@/libs/liff";
-import { Profile } from "@/entities/profile";
 
 interface LiffContextValue {
   initialized: boolean;
@@ -54,7 +55,6 @@ export const LiffProvider = ({ children }: LiffProviderProps) => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [profile, setProfile] = useState<Profile>();
   const [accessToken, setAccessToken] = useState<string | undefined>();
-
   useEffect(() => {
     const init = async () => {
       await liffInit();
@@ -65,26 +65,28 @@ export const LiffProvider = ({ children }: LiffProviderProps) => {
       setIsLoggedIn(true);
       const profile = await liffGetProfile();
       setProfile(profile);
+      const accessToken = liffGetAccessToken();
+      setAccessToken(accessToken ?? undefined);
     };
 
     init();
   }, []);
 
-  const login = async () => {
-    await liffLogin();
+  const login = useCallback(async () => {
+    liffLogin();
     setIsLoggedIn(true);
     const profile = await liffGetProfile();
     setProfile(profile);
     const accessToken = liffGetAccessToken();
     setAccessToken(accessToken ?? undefined);
-  };
+  }, []);
 
-  const logout = async () => {
-    await liffLogout();
+  const logout = useCallback(async () => {
+    liffLogout();
     setIsLoggedIn(false);
     setProfile(undefined);
     setAccessToken(undefined);
-  };
+  }, []);
 
   const contextValue = {
     initialized,

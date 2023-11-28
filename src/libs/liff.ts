@@ -1,15 +1,15 @@
-import { Profile } from "@/entities/profile";
 import liff from "@line/liff";
+import { Profile } from "@/entities/profile";
 
 export const liffInit = async () => {
   await liff.init({ liffId: process.env.NEXT_PUBLIC_LIFF_ID as string });
 };
 
-export const liffLogin = async () => {
+export const liffLogin = () => {
   liff.login();
 };
 
-export const liffLogout = async () => {
+export const liffLogout = () => {
   liff.logout();
 };
 
@@ -26,7 +26,7 @@ export const liffGetProfile = async (): Promise<Profile> => {
   };
 };
 
-export const liffSendMessages = (messages: any) => {
+export const liffSendMessages = async (messages: any) => {
   return liff.sendMessages(messages);
 };
 
