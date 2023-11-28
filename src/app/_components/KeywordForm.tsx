@@ -2,10 +2,10 @@ import React from "react";
 import { OutlineButton, PrimaryButton } from "@/components/ui/Buttons";
 import { Form } from "@/components/ui/Form";
 import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { VStack } from "@/components/ui/Stack";
 import { Switch } from "@/components/ui/Switch";
 import { Text } from "@/components/ui/Text";
-import { Select } from "@/components/ui/Select";
 
 export const KeywordForm = () => {
   return (
