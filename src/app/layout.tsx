@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "./globals.css";
 import { ReactNode } from "react";
-import { LiffProvider } from "@/hooks/useLiff";
+import { Providers } from "./providers";
+import { HeaderLayout } from "@/components/layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +14,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="ja">
-      <LiffProvider>
-        <body className={inter.className}>{children}</body>
-      </LiffProvider>
+      <Providers>
+        <body className={inter.className}>
+          <HeaderLayout>{children}</HeaderLayout>
+        </body>
+      </Providers>
     </html>
   );
 }
